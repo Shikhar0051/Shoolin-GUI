@@ -1,16 +1,72 @@
 <HelpWindow>
-    name:help
+    name:"help"
+
+    Button:
+        id:ms
+        text:"Main Screen"
+        on_release:
+            root.manager.transition.direction = "left"
+            root.main_window()
 
 <MainWindow>
-    name:main
+    name:"main"
+
+    target : target
+    out_file : output_file
+    overwrite_nmap : overwrite_nmap
+    
     GridLayout:
-        cols:2
-        Button:
-            id:hp
-            text:Help
-        Button:
-            id:version
-            text: Version
+        cols:1
+
+        GridLayout:
+            cols:3
+            
+            row_force_default: True
+            row_default_height: 50
+            
+            Button:
+                id:hp
+                text:"Help"
+                on_release:
+                    root.manager.transition.direction = "right"
+                    root.help()
+            
+            Button:
+                id:version
+                text: "Version"
+                on_release: 
+                    root.v_popup()
+
+            Button:
+                id:reset
+                text:"Reset form"
+                on_release:
+                    root.reset_window()
+        
+        GridLayout:
+            cols:2
+
+            Label:
+                text:"Target *"
+            TextInput:
+                id:target
+                multiline:False
+            
+            Label:
+                text:"Output File Name"
+            TextInput:
+                id:output_file
+                multiline:False
+
+            Label:
+                text:"Overwrite Nmap Scan"
+            TextInput:
+                id:overwrite_nmap
+                multiline:False
+                hint_text:"-F -T5"
+
+            
+
 
 <OutputWindow>
-    name:output
+    name:"output"

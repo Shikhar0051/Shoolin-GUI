@@ -6,13 +6,29 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
+from kivy.core.window import Window
 
+Window.size = (600, 600)
 
 class HelpWindow(Screen):
-    pass
+    def main_window(self):
+        sm.current = "main"
 
 class MainWindow(Screen):
-    pass
+    target = ObjectProperty(None)
+    out_file = ObjectProperty(None)
+    overwrite_nmap = ObjectProperty(None)
+
+    def v_popup(self):
+        version_popup()
+    
+    def help(self):
+        sm.current = "help"
+
+    def reset_window(self):
+        self.target.text = ""
+        self.out_file.text = ""
+        self.overwrite_nmap.text = ""
 
 class OutputWindow(Screen):
     pass
