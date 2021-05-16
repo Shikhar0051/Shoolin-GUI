@@ -21,10 +21,21 @@ class WindowManager(ScreenManager):
     pass
 
 def version_popup():
-    pass
+    version = "v1.0"
+    version_text = "this is "+version+" for this app"
+    vpop = Popup(title="Version",
+                    content=Label(text=version_text),
+                    size_hint=(None, None), size=(400, 400))
+    
+    vpop.open()
 
 def invalid_target():
-    pass
+    rep = "Invalid Parameters"
+    vpop = Popup(title="Invalid Parameters!",
+                    content=Label(text=rep),
+                    size_hint=(None, None), size=(400, 400))
+    
+    vpop.open()
 
 kv = Builder.load_file("start.kv")
 sm = WindowManager()
