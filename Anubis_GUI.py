@@ -15,6 +15,7 @@ class HelpWindow(Screen):
     This is a help window. It contains the functionality of all the given boxes
     on the main window.
     """
+
     def main_window(self):
         sm.current = "main"
 
@@ -23,6 +24,7 @@ class MainWindow(Screen):
     This is the main window that contains the main form.
     This connects the frontend of the app to the backend
     """
+
     target = ObjectProperty(None)
     out_file = ObjectProperty(None)
     overwrite_nmap = ObjectProperty(None)
@@ -51,6 +53,7 @@ def version_popup():
     """
     Version Popup Window.
     """
+    
     version = "v1.0"
     version_text = "this is "+version+" for this app"
     vpop = Popup(title="Version",
@@ -63,6 +66,7 @@ def invalid_target():
     """
     Invalid form popup.
     """
+
     rep = "Invalid Parameters"
     vpop = Popup(title="Invalid Parameters!",
                     content=Label(text=rep),
