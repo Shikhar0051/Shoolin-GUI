@@ -4,7 +4,6 @@ from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 
@@ -28,23 +27,48 @@ class MainWindow(Screen):
     target = ObjectProperty(None)
     out_file = ObjectProperty(None)
     overwrite_nmap = ObjectProperty(None)
+    with_nmap = ObjectProperty(None)
+    add_info = ObjectProperty(None)
+    ip = ObjectProperty(None)
+    recursive = ObjectProperty(None)
+    ssl = ObjectProperty(None)
+    silent = ObjectProperty(None)
+    verbrose = ObjectProperty(None)
+    anubis_db = ObjectProperty(None)
 
     def v_popup(self):
         version_popup()
     
     def help(self):
         sm.current = "help"
+    
+    def output_window(self):
+        sm.current = "output"
+
+    def get_results(self):
+        if self.target.text == "" :
+            invalid_target("target not specified")
 
     def reset_window(self):
         self.target.text = ""
         self.out_file.text = ""
         self.overwrite_nmap.text = ""
+        self.with_nmap.active = False
+        self.add_info.active = False
+        self.ip.active = False
+        self.ssl.active = False
+        self.silent.active = False
+        self.recursive.active = False
+        self.verbrose.active = False
+        self.anubis_db.active = False
 
 class OutputWindow(Screen):
     """
     This is the output window. All the generated results will be seen here.
     """
-    pass
+
+    def main_window(self):
+        sm.current = "main"
 
 class WindowManager(ScreenManager):
     pass
@@ -62,12 +86,11 @@ def version_popup():
     
     vpop.open()
 
-def invalid_target():
+def invalid_target(rep):
     """
     Invalid form popup.
     """
-
-    rep = "Invalid Parameters"
+    
     vpop = Popup(title="Invalid Parameters!",
                     content=Label(text=rep),
                     size_hint=(None, None), size=(400, 400))

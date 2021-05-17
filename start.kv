@@ -14,6 +14,14 @@
     target : target
     out_file : output_file
     overwrite_nmap : overwrite_nmap
+    with_nmap : with_nmap
+    add_info : add_info
+    ip : ip
+    recursive : recursive
+    ssl : ssl
+    silent : silent
+    verbrose : verbrose
+    anubis_db : anubis_db
     
     GridLayout:
         cols:1
@@ -45,6 +53,8 @@
         
         GridLayout:
             cols:2
+            row_force_default: True
+            row_default_height: 30
 
             Label:
                 text:"Target *"
@@ -65,8 +75,72 @@
                 multiline:False
                 hint_text:"-F -T5"
 
+        GridLayout:
+            cols: 4
+
+            Label:
+                text:"with nmap"
+            CheckBox:
+                id:with_nmap
+
+            Label:
+                text:"additional info"
+            CheckBox:
+                id:add_info
+
+            Label:
+                text:"ip"
+            CheckBox:
+                id:ip
+
+            Label:
+                text:"recursive"
+            CheckBox:
+                id:recursive
+
+            Label:
+                text:"ssl"
+            CheckBox:
+                id:ssl
+
+            Label:
+                text:"silent"
+            CheckBox:
+                id:silent
+
+            Label:
+                text:"verbrose"
+            CheckBox:
+                id:verbrose
+
+            Label:
+                text:"send to anubis db"
+            CheckBox:
+                id:anubis_db
+
+        GridLayout:
+            cols:3
+            row_force_default: True
+            row_default_height: 50
+
+            Label:
+                text:""
             
+            Button:
+                text:"Submit"
+                on_release:
+                    root.get_results()
+            
+            Label:
+                text:""
 
 
 <OutputWindow>
     name:"output"
+
+    Button:
+        id:ms
+        text:"Main Screen"
+        on_release:
+            root.manager.transition.direction = "right"
+            root.main_window()
