@@ -1,4 +1,4 @@
-import sys
+import os
 from kivy.app import App
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -6,6 +6,8 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
+from kivy.factory import Factory
+from plyer import filechooser
 
 Window.size = (600, 600)
 
@@ -35,6 +37,11 @@ class MainWindow(Screen):
     silent = ObjectProperty(None)
     verbrose = ObjectProperty(None)
     anubis_db = ObjectProperty(None)
+    uploaded_file = ObjectProperty(None)
+    file_choosen = ObjectProperty(None)
+
+    file_path = ""
+    file_name = ""
 
     def v_popup(self):
         version_popup()
@@ -46,8 +53,25 @@ class MainWindow(Screen):
         sm.current = "output"
 
     def get_results(self):
-        if self.target.text == "" :
-            invalid_target("target not specified")
+        if self.target.text == "" and self.file_path == "":
+            invalid_popup("target not specified")
+        else:
+            sm.current = "output"
+    
+    def get_file(self):
+        path = filechooser.open_file(title="Pick a text file..", 
+                             filters=[("Comma-separated Values", "*.txt")])
+        
+        if len(path)==1:
+            p = path[0]
+            self.file_path = p
+            p = list(map(str, p.split("\\")))
+            self.file_name = p[-1]
+            self.uploaded_file.text = self.file_name
+
+            self.file_choosen.visible = False
+        else:
+            invalid_popup("Please choose a single text file")
 
     def reset_window(self):
         self.target.text = ""
@@ -61,6 +85,8 @@ class MainWindow(Screen):
         self.recursive.active = False
         self.verbrose.active = False
         self.anubis_db.active = False
+        self.file_choosen.visible = True
+        self.file_path = ""
 
 class OutputWindow(Screen):
     """
@@ -86,7 +112,7 @@ def version_popup():
     
     vpop.open()
 
-def invalid_target(rep):
+def invalid_popup(rep):
     """
     Invalid form popup.
     """

@@ -22,6 +22,8 @@
     silent : silent
     verbrose : verbrose
     anubis_db : anubis_db
+    uploaded_file : uploaded_file
+    file_choosen : file_choosen
     
     GridLayout:
         cols:1
@@ -74,6 +76,31 @@
                 id:overwrite_nmap
                 multiline:False
                 hint_text:"-F -T5"
+
+            Label:
+                text:"File containing Targets"
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: 10
+
+                Button:
+                    id:file_choosen
+                    visible:True
+                    
+                    opacity: 1 if self.visible else 0
+                    disabled: not self.visible
+                    text:"Upload a file"
+                    on_release:
+                        root.get_file()
+                
+                Label:
+                    id:uploaded_file
+                    visible: not file_choosen.visible
+                    size_hint_x: 1 if self.visible else 0
+                    opacity: 1 if self.visible else 0
+                    disabled: not self.visible
+                    text:""
 
         GridLayout:
             cols: 4
