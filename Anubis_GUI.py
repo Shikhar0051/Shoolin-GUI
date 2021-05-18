@@ -8,6 +8,7 @@ from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from kivy.factory import Factory
 from plyer import filechooser
+from collections import defaultdict as dt
 
 Window.size = (600, 600)
 
@@ -55,7 +56,49 @@ class MainWindow(Screen):
     def get_results(self):
         if self.target.text == "" and self.file_path == "":
             invalid_popup("target not specified")
+        elif self.target.text and self.file_path:
+            invalid_popup("Please select either Target or Target File")
+            self.file_choosen.visible = True
+            self.target.text = ""
         else:
+            options = dt(str)
+            if self.target.text != "":
+                options += "--target "+ self.target.text + " "
+            
+            if self.out_file.text != "":
+                options += "--output "+ self.out_file.text + " "
+            
+            if self.overwrite_nmap.text != "":
+                options += "--overwrite-nmap-scan "+ self.overwrite_nmap.text + " "
+            
+            if self.file_path != "":
+                options += "--file "+ self.file_path + " "
+            
+            if self.with_nmap.active:
+                options += "--with-nmap "
+            
+            if self.ip.active:
+                options += "--ip "
+            
+            if self.ssl.active:
+                options += "--ssl "
+            
+            if self.verbrose.active:
+                options += "--verbrose "
+            
+            if self.add_info.active:
+                options += "--additional-info "
+            
+            if self.recursive.active:
+                options += "--recursive "
+            
+            if self.silent.active:
+                options += "--silent "
+            
+            if self.anubis_db.active:
+                options += "--send-to-anubis-db "
+            
+            print(options)
             sm.current = "output"
     
     def get_file(self):
