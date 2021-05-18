@@ -66,37 +66,37 @@ class MainWindow(Screen):
                 options["--target"] = self.target.text
             
             if self.out_file.text != "":
-                options += "--output "+ self.out_file.text + " "
+                options["--output "] = self.out_file.text
             
             if self.overwrite_nmap.text != "":
-                options += "--overwrite-nmap-scan "+ self.overwrite_nmap.text + " "
+                options["--overwrite-nmap-scan"] = self.overwrite_nmap.text
             
             if self.file_path != "":
-                options += "--file "+ self.file_path + " "
+                options["--file "] = self.file_path
             
             if self.with_nmap.active:
-                options += "--with-nmap "
+                options["--with-nmap "] = True
             
             if self.ip.active:
-                options += "--ip "
+                options["--ip "] = True
             
             if self.ssl.active:
-                options += "--ssl "
+                options["--ssl "] = True
             
             if self.verbrose.active:
-                options += "--verbrose "
+                options["--verbrose "] = True
             
             if self.add_info.active:
-                options += "--additional-info "
+                options["--additional-info "] = True
             
             if self.recursive.active:
-                options += "--recursive "
+                options["--recursive "] = True
             
             if self.silent.active:
-                options += "--silent "
+                options["--silent "] = True
             
             if self.anubis_db.active:
-                options += "--send-to-anubis-db "
+                options["--send-to-anubis-db "] = True
             
             print(options)
             sm.current = "output"
