@@ -75,13 +75,13 @@ def seconds_to_str(t):
                                       [(t * 1000,), 1000, 60, 60])
 
 
-def main():
+def main(options):
   try:
     start_time = time.time()
 
     import anubis.commands
 
-    options = docopt(__doc__, version=VERSION)
+    #options = docopt(__doc__, version=VERSION)
 
     if options["--output"] or options['--silent']:
       sys.stdout = StdOutHook(options["FILENAME"], options['--silent'],
