@@ -63,7 +63,7 @@ class MainWindow(Screen):
         else:
             options = dt(str)
             if self.target.text != "":
-                options += "--target "+ self.target.text + " "
+                options["--target"] = self.target.text
             
             if self.out_file.text != "":
                 options += "--output "+ self.out_file.text + " "
