@@ -9,6 +9,7 @@ from kivy.core.window import Window
 from kivy.factory import Factory
 from plyer import filechooser
 from collections import defaultdict as dt
+import src.commands as cmd
 
 Window.size = (600, 600)
 
@@ -98,7 +99,9 @@ class MainWindow(Screen):
             if self.anubis_db.active:
                 options["--send-to-anubis-db "] = True
             
-            OutputWindow.main(options)
+            #OutputWindow.main(options = options)
+            out_window = OutputWindow()
+            out_window.main(options)
             sm.current = "output"
     
     def get_file(self):
@@ -135,8 +138,17 @@ class OutputWindow(Screen):
     """
     This is the output window. All the generated results will be seen here.
     """
+
     def main(self, options):
-        pass
+        try:
+            source = []
+            command = cmd.Target(options)
+            result = command.run()
+            print(result)
+
+        except Exception as e:
+            error_popup("Error Occured!")
+            sm.current = "main"
 
 
     def main_window(self):
@@ -164,6 +176,17 @@ def invalid_popup(rep):
     """
     
     vpop = Popup(title="Invalid Parameters!",
+                    content=Label(text=rep),
+                    size_hint=(None, None), size=(400, 400))
+    
+    vpop.open()
+
+def error_popup(rep):
+    """
+    Invalid form popup.
+    """
+    
+    vpop = Popup(title="Error!",
                     content=Label(text=rep),
                     size_hint=(None, None), size=(400, 400))
     
