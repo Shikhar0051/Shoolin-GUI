@@ -141,7 +141,6 @@ class OutputWindow(Screen):
 
     def main(self, options):
         try:
-            source = []
             command = cmd.Target(options)
             result = command.run()
             print(result)
