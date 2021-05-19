@@ -9,7 +9,6 @@ from kivy.core.window import Window
 from kivy.factory import Factory
 from plyer import filechooser
 from collections import defaultdict as dt
-from anubis_src.anubis.cli import main
 
 Window.size = (600, 600)
 
@@ -99,7 +98,7 @@ class MainWindow(Screen):
             if self.anubis_db.active:
                 options["--send-to-anubis-db "] = True
             
-            main(options)
+            OutputWindow.main(options)
             sm.current = "output"
     
     def get_file(self):
@@ -136,6 +135,9 @@ class OutputWindow(Screen):
     """
     This is the output window. All the generated results will be seen here.
     """
+    def main(self, options):
+        pass
+
 
     def main_window(self):
         sm.current = "main"
