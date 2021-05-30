@@ -37,3 +37,4 @@ def search_crtsh(self, target):
 
     except Exception:
         self.errors.append("Error in crt.sh")
+        return
