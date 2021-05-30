@@ -13,7 +13,7 @@ from kivy.core.window import Window
 from kivy.factory import Factory
 from plyer import filechooser
 from collections import defaultdict as dt
-import src.commands as cmd
+from src.commands.target import Target
 
 Window.size = (600, 600)
 
@@ -156,13 +156,14 @@ class OutputWindow(Screen):
     def main(self, options):
         try:
             print(options)
-            command = cmd.Target(options)
+            command = Target(options)
             result = command.run()
             print(result)
 
         except Exception as e:
             error_popup("Error Occured!")
-            self.main_window()
+            print(e)
+        self.main_window()
 
 
     def main_window(self):

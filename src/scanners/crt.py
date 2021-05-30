@@ -22,10 +22,10 @@ def search_crtsh(self, target):
                 'accept-encoding':           'gzip, deflate, br',
                 'accept-language':           'en-US,en;q=0.9,it;q=0.8,la;q=0.7', }
 
-    params = ('q', '%.' + target)
+    params = (('q', '%.' + target),)
 
     try:
-        res = requests.get('https://crt.sh/', headers= headers, params=params)
+        res = requests.get('https://crt.sh/', headers=headers, params=params)
         scraped = res.text
         subdomain_finder = re.compile('<TD>(.*\.' + target + ')</TD>')
         links = subdomain_finder.findall(scraped)
@@ -36,4 +36,4 @@ def search_crtsh(self, target):
                 self.domains.append(domain.strip())
 
     except Exception:
-        self.handle_exception("error in crt.sh")
+        self.errors.append("Error in crt.sh")
