@@ -1,4 +1,8 @@
 import os
+import re
+import socket
+from urllib.parse import urlsplit
+
 from kivy.app import App
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -65,6 +69,16 @@ class MainWindow(Screen):
             options = dt(str)
             if self.target.text != "":
                 options["--target"] = self.target.text
+                options["--target"] = list(filter(None, options["--target"].split(",")))
+                for i in range(len(options["--target"])):
+                    url = options["--target"][i]
+                    # Inject protocol if not there
+                    if not re.match(r'http(s?):', url):
+                        url = 'http://' + url
+
+                    parsed = urlsplit(url)
+                    host = parsed.netloc
+                    options["--target"][i] = host
             
             if self.out_file.text != "":
                 options["--output "] = self.out_file.text
@@ -141,13 +155,14 @@ class OutputWindow(Screen):
 
     def main(self, options):
         try:
+            print(options)
             command = cmd.Target(options)
             result = command.run()
             print(result)
 
         except Exception as e:
             error_popup("Error Occured!")
-            sm.current = "main"
+            self.main_window()
 
 
     def main_window(self):

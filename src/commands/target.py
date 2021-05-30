@@ -1,3 +1,5 @@
+from src.scanners.crt import search_crtsh
+
 class Target():
     domains = list()
 
@@ -6,4 +8,8 @@ class Target():
         self.args = args
         self.kwargs = kwargs
 
-    
+    def handle_exception(self, error):
+        return error
+        
+    def run(self):
+        pass
