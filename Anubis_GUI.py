@@ -152,13 +152,16 @@ class OutputWindow(Screen):
     """
     This is the output window. All the generated results will be seen here.
     """
+    res = ObjectProperty(None)
+    res_out = ObjectProperty(None)
 
     def main(self, options):
         try:
             print(options)
             command = Target(options)
             result = command.run()
-            print(result)
+            for item in result['results']:
+                self.res_out.add_widget(Label(text=item))
 
         except Exception as e:
             error_popup("Error Occured!")

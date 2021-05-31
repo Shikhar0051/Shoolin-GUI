@@ -45,7 +45,7 @@ class Target():
             self.domains = self.clean_domains(self.domains)
             self.ded = set(self.domains)
 
-        return [self.ded, self.zonetransfers]
+        return {'results': self.ded, 'zonetransfer': self.zonetransfers}
     
     def clean_domains(self, domains):
         clean = []
