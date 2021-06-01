@@ -156,6 +156,7 @@
             Button:
                 text:"Submit"
                 on_release:
+                    root.manager.transition.direction = "left"
                     root.get_results()
             
             Label:
@@ -170,16 +171,21 @@
     GridLayout:
         cols:1
         
-        GridLayout:
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
 
-            id:res_out
-            cols : 1
-            row_force_default: True
-            row_default_height: 30
+            GridLayout:
+
+                id:res_out
+                cols : 1
+                size_hint_y: None
+            
             
         
         Button:
             id:ms
+            size_hint_y: .1
             text:"Main Screen"
             on_release:
                 root.manager.transition.direction = "right"

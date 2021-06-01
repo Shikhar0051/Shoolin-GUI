@@ -12,10 +12,13 @@ from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from kivy.factory import Factory
 from plyer import filechooser
+from kivy.config import Config
 from collections import defaultdict as dt
 from src.commands.target import Target
 
 Window.size = (600, 600)
+Config.set('graphics', 'resizable', False) #0 being off 1 being on as in true/false
+
 
 class HelpWindow(Screen):
     """
@@ -161,7 +164,7 @@ class OutputWindow(Screen):
             command = Target(options)
             result = command.run()
             for item in result['results']:
-                self.res_out.add_widget(Label(text=item))
+                self.res_out.add_widget(Label(size_hint_y=None,height=20,text=item))
 
         except Exception as e:
             error_popup("Error Occured!")
