@@ -168,13 +168,19 @@
     res_out:res_out
 
     GridLayout:
-        id:res_out
-        cols : 1
+        cols:1
         
-    
-    Button:
-        id:ms
-        text:"Main Screen"
-        on_release:
-            root.manager.transition.direction = "right"
-            root.main_window()
+        GridLayout:
+
+            id:res_out
+            cols : 1
+            row_force_default: True
+            row_default_height: 30
+            
+        
+        Button:
+            id:ms
+            text:"Main Screen"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.main_window()

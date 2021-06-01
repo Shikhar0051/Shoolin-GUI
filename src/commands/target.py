@@ -36,8 +36,8 @@ class Target():
             for x in threads:
                 x.start()
                 
-            if len(self.errors) > 1:
-                return self.errors
+            # if len(self.errors) > 1:
+            #     return {'results':self.errors}
             
             for x in threads:
                 x.join()

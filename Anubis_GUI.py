@@ -114,7 +114,7 @@ class MainWindow(Screen):
                 options["--send-to-anubis-db "] = True
             
             #OutputWindow.main(options = options)
-            out_window = OutputWindow()
+            out_window = self.manager.get_screen('output')
             out_window.main(options)
             sm.current = "output"
     
