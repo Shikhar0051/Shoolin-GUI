@@ -43,14 +43,13 @@ class MainWindow(Screen):
     ip = ObjectProperty(None)
     recursive = ObjectProperty(None)
     ssl = ObjectProperty(None)
-    silent = ObjectProperty(None)
     verbrose = ObjectProperty(None)
-    anubis_db = ObjectProperty(None)
     uploaded_file = ObjectProperty(None)
     file_choosen = ObjectProperty(None)
 
     file_path = ""
     file_name = ""
+    output_file = False
 
     def v_popup(self):
         version_popup()
@@ -69,7 +68,7 @@ class MainWindow(Screen):
             self.file_choosen.visible = True
             self.target.text = ""
         else:
-            options = dt(str)
+            options = {}
             if self.target.text != "":
                 options["--target"] = self.target.text
                 options["--target"] = list(filter(None, options["--target"].split(",")))
@@ -84,7 +83,11 @@ class MainWindow(Screen):
                     options["--target"][i] = host
             
             if self.out_file.text != "":
-                options["--output "] = self.out_file.text
+                file = self.out_file.text
+                if file[-4:] != ".txt":
+                    file+=".txt"
+                options["--output"] = file
+                self.output_file = True
             
             if self.overwrite_nmap.text != "":
                 options["--overwrite-nmap-scan"] = self.overwrite_nmap.text
@@ -109,17 +112,27 @@ class MainWindow(Screen):
             
             if self.recursive.active:
                 options["--recursive "] = True
-            
-            if self.silent.active:
-                options["--silent "] = True
-            
-            if self.anubis_db.active:
-                options["--send-to-anubis-db "] = True
-            
+
             #OutputWindow.main(options = options)
-            out_window = self.manager.get_screen('output')
-            out_window.main(options)
-            sm.current = "output"
+            if self.output_file:
+                command = Target(options)
+                result = command.run()
+                save_path = "./output/"
+                complete = os.path.join(save_path, options["--output"])
+                print(complete)
+                print(options)
+                f = open(complete, "w")
+
+                for item in result["results"]:
+                    f.write(item + "\n")
+                
+                file_saved(complete)
+                self.reset_window()
+
+            else:
+                out_window = self.manager.get_screen('output')
+                out_window.main(options)
+                sm.current = "output"
     
     def get_file(self):
         path = filechooser.open_file(title="Pick a text file..", 
@@ -144,10 +157,8 @@ class MainWindow(Screen):
         self.add_info.active = False
         self.ip.active = False
         self.ssl.active = False
-        self.silent.active = False
         self.recursive.active = False
         self.verbrose.active = False
-        self.anubis_db.active = False
         self.file_choosen.visible = True
         self.file_path = ""
 
@@ -209,6 +220,15 @@ def error_popup(rep):
     
     vpop = Popup(title="Error!",
                     content=Label(text=rep),
+                    size_hint=(None, None), size=(400, 400))
+    
+    vpop.open()
+
+
+def file_saved(rep):
+    res = "File Saved successfully!! Location = " + rep
+    vpop = Popup(title="File Saved successfully",
+                    content=Label(text=res),
                     size_hint=(None, None), size=(400, 400))
     
     vpop.open()

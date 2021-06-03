@@ -19,9 +19,7 @@
     ip : ip
     recursive : recursive
     ssl : ssl
-    silent : silent
     verbrose : verbrose
-    anubis_db : anubis_db
     uploaded_file : uploaded_file
     file_choosen : file_choosen
     
@@ -131,19 +129,9 @@
                 id:ssl
 
             Label:
-                text:"silent"
-            CheckBox:
-                id:silent
-
-            Label:
                 text:"verbrose"
             CheckBox:
                 id:verbrose
-
-            Label:
-                text:"send to anubis db"
-            CheckBox:
-                id:anubis_db
 
         GridLayout:
             cols:3
@@ -180,6 +168,7 @@
                 id:res_out
                 cols : 1
                 size_hint_y: None
+                height : self.minimum_height
             
             
         
