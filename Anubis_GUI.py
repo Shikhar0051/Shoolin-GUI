@@ -89,29 +89,34 @@ class MainWindow(Screen):
                 options["--output"] = file
                 self.output_file = True
             
-            if self.overwrite_nmap.text != "":
-                options["--overwrite-nmap-scan"] = self.overwrite_nmap.text
+            if self.overwrite_nmap.text != "" or self.with_nmap.active:
+                options["--with-nmap"] = True
+                if self.overwrite_nmap.text == "":
+                    options["--overwrite-nmap-scan"] = "-nPn -sV -sC"
+                else:
+                    options["--overwrite-nmap-scan"] = self.overwrite_nmap.text
             
             if self.file_path != "":
-                options["--file "] = self.file_path
+                options["--file"] = self.file_path
             
-            if self.with_nmap.active:
-                options["--with-nmap "] = True
+            # if self.with_nmap.active:
+            #     options["--with-nmap "] = True
+            #     if options["--overwrite-nmap-scan"] =
             
             if self.ip.active:
-                options["--ip "] = True
+                options["--ip"] = True
             
             if self.ssl.active:
-                options["--ssl "] = True
+                options["--ssl"] = True
             
             if self.verbrose.active:
-                options["--verbrose "] = True
+                options["--verbrose"] = True
             
             if self.add_info.active:
-                options["--additional-info "] = True
+                options["--additional-info"] = True
             
             if self.recursive.active:
-                options["--recursive "] = True
+                options["--recursive"] = True
 
             #OutputWindow.main(options = options)
             if self.output_file:
@@ -119,8 +124,6 @@ class MainWindow(Screen):
                 result = command.run()
                 save_path = "./output/"
                 complete = os.path.join(save_path, options["--output"])
-                print(complete)
-                print(options)
                 f = open(complete, "w")
 
                 for item in result["results"]:
@@ -174,6 +177,7 @@ class OutputWindow(Screen):
             print(options)
             command = Target(options)
             result = command.run()
+            print(result)
             for item in result['results']:
                 self.res_out.add_widget(Label(size_hint_y=None,height=20,text=item))
 

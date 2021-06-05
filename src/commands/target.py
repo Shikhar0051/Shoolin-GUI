@@ -6,12 +6,15 @@ from src.scanners.hackertarget import search_hackertarget
 from src.scanners.netcraft import search_netcraft
 from src.scanners.ssl import search_ssl_alt_names
 from src.scanners.zonetransfer import search_zonetransfer
+from src.scanners.nmap import scan_hosts
 
 class Target():
     domains = list()
     errors = list()
     ded = set()
     zonetransfers = list()
+    nmap_result = {}
+    ip = str()
 
     def __init__(self, options, *args, **kwargs):
         self.options = options
@@ -32,7 +35,10 @@ class Target():
                         threading.Thread(target=search_netcraft, args=(self, target)),
                         threading.Thread(target=search_ssl_alt_names, args=(self, target)),
                         threading.Thread(target=search_zonetransfer, args=(self, target))]
-
+                        
+            if self.options["--with-nmap"]:
+                threads.append(threading.Thread(target=scan_hosts, args=(self, self.options["--overwrite-nmap-scan"])))
+            
             for x in threads:
                 x.start()
                 
@@ -45,7 +51,7 @@ class Target():
             self.domains = self.clean_domains(self.domains)
             self.ded = set(self.domains)
 
-        return {'results': self.ded, 'zonetransfer': self.zonetransfers}
+        return {'results': self.ded, 'zonetransfer': self.zonetransfers, "nmap": self.nmap_result}
     
     def clean_domains(self, domains):
         clean = []
