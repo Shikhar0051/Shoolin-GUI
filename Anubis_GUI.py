@@ -99,18 +99,8 @@ class MainWindow(Screen):
             if self.file_path != "":
                 options["--file"] = self.file_path
             
-            # if self.with_nmap.active:
-            #     options["--with-nmap "] = True
-            #     if options["--overwrite-nmap-scan"] =
-            
-            if self.ip.active:
-                options["--ip"] = True
-            
             if self.ssl.active:
                 options["--ssl"] = True
-            
-            if self.verbrose.active:
-                options["--verbrose"] = True
             
             if self.add_info.active:
                 options["--additional-info"] = True
@@ -158,10 +148,8 @@ class MainWindow(Screen):
         self.overwrite_nmap.text = ""
         self.with_nmap.active = False
         self.add_info.active = False
-        self.ip.active = False
         self.ssl.active = False
         self.recursive.active = False
-        self.verbrose.active = False
         self.file_choosen.visible = True
         self.file_path = ""
 

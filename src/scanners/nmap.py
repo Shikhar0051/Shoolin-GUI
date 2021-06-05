@@ -26,7 +26,7 @@ def scan_hosts(self, arguments):
                     lp['service'] = nm[host][proto][port]['product']
                 if nm[host][proto][port]['version']:
                     lp['port'] = nm[host][proto][port]['version']
-                self.nmap_result['port_info'].append(lp)
+                
             except Exception as e:
                 print(e)
 
@@ -46,3 +46,5 @@ def scan_hosts(self, arguments):
                                 
             except Exception:
                 continue   
+        
+        self.nmap_result.append(lp)
