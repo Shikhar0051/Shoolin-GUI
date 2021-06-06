@@ -25,10 +25,18 @@
         cols:1
 
         GridLayout:
+            canvas :
+                Color: 
+                    rgb: 1, 0, 0
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
             cols:3
-            
+            size_hint_y: None
+            height:50
             row_force_default: True
             row_default_height: 50
+            
             
             Button:
                 id:hp
@@ -50,9 +58,17 @@
                     root.reset_window()
         
         GridLayout:
+            canvas :
+                Color: 
+                    rgb: 0, 1, 0
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
             cols:2
             row_force_default: True
-            row_default_height: 30
+            row_default_height: 32
+            spacing : 10, 10
+            padding: 10, 10
 
             Label:
                 text:"Target *"
@@ -99,8 +115,16 @@
                     text:""
 
         GridLayout:
-            cols: 4
+            canvas :
+                Color: 
+                    rgb: 1, 1, 0
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
+            cols: 4
+            size_hint_y: None
+            height:100
             Label:
                 text:"with nmap"
             CheckBox:
@@ -123,7 +147,15 @@
 
             
         GridLayout:
+            canvas :
+                Color: 
+                    rgb: 0, 0, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
             cols:3
+            size_hint_y: None
+            height:80
             row_force_default: True
             row_default_height: 50
 
@@ -159,8 +191,6 @@
                 size_hint_y: None
                 height : self.minimum_height
             
-            
-        
         Button:
             id:ms
             size_hint_y: .1

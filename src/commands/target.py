@@ -48,12 +48,15 @@ class Target():
                         threading.Thread(target=search_ssl_alt_names, args=(self, target)),
                         threading.Thread(target=search_zonetransfer, args=(self, target)),
                         threading.Thread(target=search_db, args=(self, target))]
-
-            if self.options["--with-nmap"]:
-                threads.append(threading.Thread(target=scan_hosts, args=(self, self.options["--overwrite-nmap-scan"])))
+            try:
+                if self.options["--with-nmap"]:
+                    threads.append(threading.Thread(target=scan_hosts, args=(self, self.options["--overwrite-nmap-scan"])))
+                
+                if self.options["--additional-info"]:
+                    threads.append(threading.Thread(target=search_shodan, args=(self, target)))
             
-            if self.options["--additional-info"]:
-                threads.append(threading.Thread(target=search_shodan, args=(self, target)))
+            except Exception:
+                pass
 
             for x in threads:
                 x.start()

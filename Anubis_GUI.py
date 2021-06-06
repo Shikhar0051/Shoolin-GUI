@@ -1,6 +1,5 @@
 import os
 import re
-import socket
 from urllib.parse import urlsplit
 
 from kivy.app import App
@@ -16,7 +15,7 @@ from kivy.config import Config
 from collections import defaultdict as dt
 from src.commands.target import Target
 
-Window.size = (600, 600)
+Window.size = (600, 400)
 Config.set('graphics', 'resizable', False) #0 being off 1 being on as in true/false
 
 
@@ -166,8 +165,15 @@ class OutputWindow(Screen):
             command = Target(options)
             result = command.run()
             print(result)
+            
             for item in result['results']:
                 self.res_out.add_widget(Label(size_hint_y=None,height=20,text=item))
+                if len(result['zonetransfer'])>0:
+                    for item in result['zonetransfer']:
+                        self.res_out.add_widget(Label(size_hint_y=None,height=20,text=item))
+                if len(result['zonetransfer'])>0:
+                    for item in result['nmap']:
+                        self.res_out.add_widget(Label(size_hint_y=None,height=20,text=item))
 
         except Exception as e:
             error_popup("Error Occured!")
