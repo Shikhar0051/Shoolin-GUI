@@ -1,12 +1,40 @@
 <HelpWindow>
     name:"help"
-
-    Button:
-        id:ms
-        text:"Main Screen"
-        on_release:
-            root.manager.transition.direction = "left"
-            root.main_window()
+    GridLayout:
+        cols:1
+        GridLayout:
+            canvas:
+                Color:
+                    rgb : 1, 0, 1
+                Rectangle:
+                    size: self.size
+                    pos : self.pos
+            cols: 1
+            size_hint_y: None
+            height : 50
+            padding: 20
+            Label:
+                text:"Soolin GUI - A subdomain enumeration tool"
+        
+        GridLayout:
+            
+            cols:1
+                
+            Label:
+                spacing: 10
+                text: """This is a GUI based free subdomain enumeration tool. that collects data from \nvarious online sources and present it in a sequential manner. \n\nSubdomain enumeration is one of the first steps in the information gathering phase, \nand is required to get a full scope of the attack surfaces of your target. """
+            
+            Label:
+                text: "Developer - Shikhar Gupta"
+    
+        Button:
+            id:ms
+            text:"Main Screen"
+            size_hint_y: None
+            height:50
+            on_release:
+                root.manager.transition.direction = "left"
+                root.main_window()
 
 <MainWindow>
     name:"main"
@@ -25,12 +53,7 @@
         cols:1
 
         GridLayout:
-            canvas :
-                Color: 
-                    rgb: 1, 0, 0
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
+            
             cols:3
             size_hint_y: None
             height:50
@@ -58,12 +81,7 @@
                     root.reset_window()
         
         GridLayout:
-            canvas :
-                Color: 
-                    rgb: 0, 1, 0
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
+            
             cols:2
             row_force_default: True
             row_default_height: 32
@@ -94,7 +112,6 @@
             
             BoxLayout:
                 orientation: 'horizontal'
-                padding: 10
 
                 Button:
                     id:file_choosen
@@ -115,12 +132,6 @@
                     text:""
 
         GridLayout:
-            canvas :
-                Color: 
-                    rgb: 1, 1, 0
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
 
             cols: 4
             size_hint_y: None
@@ -147,12 +158,7 @@
 
             
         GridLayout:
-            canvas :
-                Color: 
-                    rgb: 0, 0, 1
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
+            
             cols:3
             size_hint_y: None
             height:80
@@ -193,7 +199,8 @@
             
         Button:
             id:ms
-            size_hint_y: .1
+            size_hint_y: None
+            height : 50
             text:"Main Screen"
             on_release:
                 root.manager.transition.direction = "right"

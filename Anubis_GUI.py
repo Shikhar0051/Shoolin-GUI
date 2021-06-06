@@ -196,7 +196,7 @@ def version_popup():
     version_text = "this is "+version+" for this app"
     vpop = Popup(title="Version",
                     content=Label(text=version_text),
-                    size_hint=(None, None), size=(400, 400))
+                    size_hint=(None, None), size=(300, 300))
     
     vpop.open()
 
@@ -207,7 +207,7 @@ def invalid_popup(rep):
     
     vpop = Popup(title="Invalid Parameters!",
                     content=Label(text=rep),
-                    size_hint=(None, None), size=(400, 400))
+                    size_hint=(None, None), size=(300, 300))
     
     vpop.open()
 
@@ -218,16 +218,19 @@ def error_popup(rep):
     
     vpop = Popup(title="Error!",
                     content=Label(text=rep),
-                    size_hint=(None, None), size=(400, 400))
+                    size_hint=(None, None), size=(300, 300))
     
     vpop.open()
 
 
 def file_saved(rep):
+    """
+    File Saved popup.
+    """
     res = "File Saved successfully!! Location = " + rep
     vpop = Popup(title="File Saved successfully",
                     content=Label(text=res),
-                    size_hint=(None, None), size=(400, 400))
+                    size_hint=(None, None), size=(300, 300))
     
     vpop.open()
 
