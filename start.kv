@@ -1,5 +1,7 @@
 <HelpWindow>
     name:"help"
+    update_software:update_software
+
     GridLayout:
         cols:1
         GridLayout:
@@ -27,6 +29,22 @@
             
             Label:
                 text: "Developer - Shikhar Gupta"
+        
+        GridLayout:
+            cols: 2
+
+            Button:
+                id:update_software
+                text: "Update Software"
+                disabled : True
+                on_release: 
+                    root.get_software_page()
+                
+            Button:
+                text: "Contribute"
+                on_release:
+                    root.get_github()
+
     
         Button:
             id:ms

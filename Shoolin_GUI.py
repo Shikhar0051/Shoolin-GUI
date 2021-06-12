@@ -3,6 +3,7 @@ import re
 from kivy.clock import Clock
 from urllib.parse import urlsplit
 import requests
+import webbrowser
 
 from kivy.app import App
 from kivy.lang.builder import Builder
@@ -30,6 +31,15 @@ class HelpWindow(Screen):
     This is a help window. It contains the functionality of all the given boxes
     on the main window.
     """
+    update_software = ObjectProperty(None)
+    if Update == True:
+        update_software.disable = False
+
+    def get_software_page(self):
+        pass
+
+    def get_github(self):
+        webbrowser.open("https://github.com/Shikhar0051/Anubis-GUI")
 
     def main_window(self):
         sm.current = "main"
