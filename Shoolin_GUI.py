@@ -1,6 +1,8 @@
 import os
 import re
+from kivy.clock import Clock
 from urllib.parse import urlsplit
+import requests
 
 from kivy.app import App
 from kivy.lang.builder import Builder
@@ -14,10 +16,14 @@ from plyer import filechooser
 from kivy.config import Config
 from collections import defaultdict as dt
 from src.commands.target import Target
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.button import Button
 
 Window.size = (600, 400)
 Config.set('graphics', 'resizable', False) #0 being off 1 being on as in true/false
 
+VERSION = "v1.0"
+Update = False
 
 class HelpWindow(Screen):
     """
@@ -28,12 +34,26 @@ class HelpWindow(Screen):
     def main_window(self):
         sm.current = "main"
 
+def check_for_updates():
+    try:
+        res = requests.get("https://shikhargupta.me/assets/versionInfo/version")
+        if res.status_code == 200:
+            if res.text != VERSION:
+                update_available()
+        else:
+            #error_confirm("Unable to check for updates")
+            pass
+    except Exception:
+        no_internet()
+
 class MainWindow(Screen):
     """
     This is the main window that contains the main form.
     This connects the frontend of the app to the backend
     """
 
+    Clock.schedule_once(lambda dt: check_for_updates())
+    
     target = ObjectProperty(None)
     out_file = ObjectProperty(None)
     overwrite_nmap = ObjectProperty(None)
@@ -187,12 +207,14 @@ class OutputWindow(Screen):
 class WindowManager(ScreenManager):
     pass
 
+
+
 def version_popup():
     """
     Version Popup Window.
     """
     
-    version = "v1.0"
+    version = VERSION
     version_text = "this is "+version+" for this app"
     vpop = Popup(title="Version",
                     content=Label(text=version_text),
@@ -234,6 +256,29 @@ def file_saved(rep):
     
     vpop.open()
 
+def update_available():
+    box = GridLayout(cols=1)
+    box.add_widget(Label(text="Update Available"))
+    global Update 
+    Update = True
+    vpop = Popup(title="Please update the software",
+                    content=box,
+                    size_hint=(None, None), size=(300, 300))
+    
+    vpop.open()
+
+def no_internet():
+    box = GridLayout(cols=1)
+    box.add_widget(Label(text="""No Internet... \nPlease check your connection \nand try again."""))
+    
+    vpop = Popup(title="No Internet Connection",
+                    content=box,
+                    size_hint=(None, None), size=(300, 300),
+                    auto_dismiss = False)
+    
+    vpop.open()
+    
+
 ### main builder and WindowManager object
 kv = Builder.load_file("start.kv")
 sm = WindowManager()
@@ -246,9 +291,9 @@ for screen in screens:
 sm.current = "main"
 
 ### main working
-class AnubisApp(App):
+class ShoolinApp(App):
     def build(self):
         return sm
         
 if __name__ == '__main__':
-    AnubisApp().run()
+    ShoolinApp().run()
