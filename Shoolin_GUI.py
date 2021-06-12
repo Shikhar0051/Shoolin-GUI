@@ -32,14 +32,17 @@ class HelpWindow(Screen):
     on the main window.
     """
     update_software = ObjectProperty(None)
-    if Update == True:
-        update_software.disable = False
 
     def get_software_page(self):
-        pass
+        if Update == False:
+            vpop = Popup(title="No Updates",
+                    content=Label(text="Update Not Available"),
+                    size_hint=(None, None), size=(300, 300))
+    
+            vpop.open()
 
     def get_github(self):
-        webbrowser.open("https://github.com/Shikhar0051/Anubis-GUI")
+        webbrowser.open("https://github.com/Shikhar0051/Shoolin-GUI")
 
     def main_window(self):
         sm.current = "main"

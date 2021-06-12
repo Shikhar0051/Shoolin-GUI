@@ -33,10 +33,15 @@
         GridLayout:
             cols: 2
 
+            size_hint_y: None
+            height:80
+            row_force_default: True
+            row_default_height: 50
+
             Button:
                 id:update_software
                 text: "Update Software"
-                disabled : True
+                disabled : False
                 on_release: 
                     root.get_software_page()
                 
