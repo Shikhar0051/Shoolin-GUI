@@ -5,12 +5,6 @@
     GridLayout:
         cols:1
         GridLayout:
-            canvas:
-                Color:
-                    rgb : 1, 0, 1
-                Rectangle:
-                    size: self.size
-                    pos : self.pos
             cols: 1
             size_hint_y: None
             height : 50
@@ -20,21 +14,29 @@
                 underline: True
         
         GridLayout:
-            
             cols:1
+            spacing : 10, 10
+            padding: 10, 10
+
+            GridLayout:
+                cols:1 
+
+                Label:
+                    text: """This is a GUI based free subdomain enumeration tool that collects data from \nvarious online sources and present it in a sequential manner. \n\nSubdomain enumeration is one of the first steps in the information gathering phase, \nand is required to get a full scope of the attack surfaces of your target. """
                 
-            Label:
-                spacing: 10
-                text: """This is a GUI based free subdomain enumeration tool that collects data from \nvarious online sources and present it in a sequential manner. \n\nSubdomain enumeration is one of the first steps in the information gathering phase, \nand is required to get a full scope of the attack surfaces of your target. """
-            
-            Label:
-                text: "Developer - Shikhar Gupta"
+            GridLayout:
+                cols:1
+                Label:
+                    text: "This software needs an active internet connection to work."
+                
+                Label:
+                    text: "Developer - Shikhar Gupta"
         
         GridLayout:
             cols: 2
-
+        
             size_hint_y: None
-            height:80
+            height:70
             row_force_default: True
             row_default_height: 50
 

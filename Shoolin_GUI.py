@@ -104,15 +104,25 @@ class MainWindow(Screen):
             if self.target.text != "":
                 options["--target"] = self.target.text
                 options["--target"] = list(filter(None, options["--target"].split(",")))
-                for i in range(len(options["--target"])):
-                    url = options["--target"][i]
-                    # Inject protocol if not there
-                    if not re.match(r'http(s?):', url):
-                        url = 'http://' + url
+                
+            else:
+                f = open(self.file_path, "r")
+                items = []
+                for item in f.readlines():
+                    item = item.replace("\n", "")
+                    items.append(item)
+                options["--target"] = items
 
-                    parsed = urlsplit(url)
-                    host = parsed.netloc
-                    options["--target"][i] = host
+            print(options)
+            for i in range(len(options["--target"])):
+                url = options["--target"][i]
+                # Inject protocol if not there
+                if not re.match(r'http(s?):', url):
+                    url = 'http://' + url
+
+                parsed = urlsplit(url)
+                host = parsed.netloc
+                options["--target"][i] = host
             
             if self.out_file.text != "":
                 file = self.out_file.text
@@ -262,7 +272,7 @@ def file_saved(rep):
     """
     File Saved popup.
     """
-    res = "File Saved successfully!! Location = " + rep
+    res = "File Saved successfully!! \nLocation = " + rep
     vpop = Popup(title="File Saved successfully",
                     content=Label(text=res),
                     size_hint=(None, None), size=(300, 300))
