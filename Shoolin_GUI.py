@@ -12,13 +12,10 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
-from kivy.factory import Factory
 from plyer import filechooser
 from kivy.config import Config
-from collections import defaultdict as dt
 from src.commands.target import Target
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.button import Button
 
 Window.size = (600, 400)
 Config.set('graphics', 'resizable', False) #0 being off 1 being on as in true/false
@@ -316,6 +313,7 @@ sm.current = "main"
 ### main working
 class ShoolinApp(App):
     def build(self):
+        self.icon = "favicon.ico"
         return sm
         
 if __name__ == '__main__':
