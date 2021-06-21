@@ -11,14 +11,15 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty
-from kivy.core.window import Window
 from plyer import filechooser
 from kivy.config import Config
 from src.commands.target import Target
 from kivy.uix.gridlayout import GridLayout
 
-Window.size = (600, 400)
+#Window.size = (600, 400)
 Config.set('graphics', 'resizable', False) #0 being off 1 being on as in true/false
+Config.set('graphics', 'width', '600')
+Config.set('graphics', 'height', '400')
 
 VERSION = "v1.0"
 Update = False
