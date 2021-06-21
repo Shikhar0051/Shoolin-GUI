@@ -111,7 +111,7 @@ class MainWindow(Screen):
                     items.append(item)
                 options["--target"] = items
 
-            print(options)
+            #print(options)
             for i in range(len(options["--target"])):
                 url = options["--target"][i]
                 # Inject protocol if not there
@@ -202,10 +202,10 @@ class OutputWindow(Screen):
 
     def main(self, options):
         try:
-            print(options)
+            #print(options)
             command = Target(options)
             result = command.run()
-            print(result)
+            #print(result)
             
             for item in result['results']:
                 self.res_out.add_widget(Label(size_hint_y=None,height=20,text=item))
@@ -218,7 +218,7 @@ class OutputWindow(Screen):
 
         except Exception as e:
             error_popup("Error Occured!")
-            print(e)
+            #print(e)
         self.main_window()
 
 
