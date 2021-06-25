@@ -42,8 +42,8 @@
 
             Button:
                 id:update_software
-                text: "Update Software"
-                disabled : False
+                text: 'Update Software ' + '[color=#ff3333]' + '1' + '[/color]' if root.soft_update else 'Update Software'
+                markup: True
                 on_release: 
                     root.get_software_page()
                 
@@ -74,6 +74,7 @@
     ssl : ssl
     uploaded_file : uploaded_file
     file_choosen : file_choosen
+    hp : hp
     
     GridLayout:
         cols:1
@@ -86,14 +87,14 @@
             row_force_default: True
             row_default_height: 50
             
-            
             Button:
                 id:hp
-                text:"Help"
+                text:'Help ' + '[color=#ff3333]' + '1' + '[/color]' if root.update else 'Help'
+                markup: True
                 on_release:
                     root.manager.transition.direction = "right"
                     root.help()
-            
+
             Button:
                 id:version
                 text: "Version"
@@ -197,7 +198,10 @@
             Button:
                 text:"Submit"
                 on_release:
-                    root.manager.transition.direction = "left"
+                    if root.internet == False: \
+                    root.no_internet_func()
+                    else: \
+                    root.manager.transition.direction = "left"; \
                     root.get_results()
             
             Label:

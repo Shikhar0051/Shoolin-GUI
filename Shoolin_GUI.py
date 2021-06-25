@@ -1,6 +1,8 @@
 import os
 import re
-from kivy.clock import Clock
+import time
+import sys
+#from kivy.clock import Clock
 from urllib.parse import urlsplit
 import requests
 import webbrowser
@@ -23,14 +25,22 @@ Config.set('graphics', 'height', '400')
 
 VERSION = "v1.0"
 Update = False
+Internet = True
 
 class HelpWindow(Screen):
     """
     This is a help window. It contains the functionality of all the given boxes
     on the main window.
     """
-    update_software = ObjectProperty(None)
+    soft_update = False
+    def __init__(self, **kwargs):
+        self.soft_update = Update
+        super(HelpWindow, self).__init__(**kwargs)
 
+    
+
+    update_software = ObjectProperty(None)
+    #print(Update)
     def get_software_page(self):
         if Update == False:
             vpop = Popup(title="No Updates",
@@ -38,6 +48,8 @@ class HelpWindow(Screen):
                     size_hint=(None, None), size=(300, 300))
     
             vpop.open()
+        else:
+            webbrowser.open("https://shikhargupta.me/downloads")
 
     def get_github(self):
         webbrowser.open("https://github.com/Shikhar0051/Shoolin-GUI")
@@ -45,26 +57,48 @@ class HelpWindow(Screen):
     def main_window(self):
         sm.current = "main"
 
-def check_for_updates():
-    try:
-        res = requests.get("https://shikhargupta.me/assets/versionInfo/version")
-        if res.status_code == 200:
-            if res.text != VERSION:
-                update_available()
-        else:
-            #error_confirm("Unable to check for updates")
-            pass
-    except Exception:
-        no_internet()
+# def check_for_updates():
+#     try:
+#         res = requests.get("https://shikhargupta.me/assets/versionInfo/version")
+#         if res.status_code == 200:
+#             if res.text != VERSION:
+#                 update_available()
+#         else:
+#             #error_confirm("Unable to check for updates")
+#             pass
+#     except Exception:
+#         no_internet()
 
 class MainWindow(Screen):
     """
     This is the main window that contains the main form.
     This connects the frontend of the app to the backend
     """
+    #hp = ObjectProperty(None)
+    update = False
+    internet = True
+    def __init__(self,  **kwargs):
+        try:
+            res = requests.get("https://shikhargupta.me/assets/versionInfo/version")
+            if res.status_code == 200 and res.text != VERSION:
+                #self.update_text.visible = True
+                #self.hp.text = "'Help ' + '[color=#ff3333]' + '1' + '[/color]'"
+                self.update = True
+                global Update
+                Update = True
 
-    Clock.schedule_once(lambda dt: check_for_updates())
+        except Exception:
+            global Internet
+            Internet = False
+            self.internet = False
+        
+        super(MainWindow, self).__init__(**kwargs)
+
+    #Clock.schedule_once(lambda dt: check_for_updates())
     
+
+    
+
     target = ObjectProperty(None)
     out_file = ObjectProperty(None)
     overwrite_nmap = ObjectProperty(None)
@@ -90,7 +124,11 @@ class MainWindow(Screen):
     def output_window(self):
         sm.current = "output"
 
+    def no_internet_func(self):
+        no_internet()
+
     def get_results(self):
+            
         if self.target.text == "" and self.file_path == "":
             invalid_popup("target not specified")
         elif self.target.text and self.file_path:
@@ -277,16 +315,16 @@ def file_saved(rep):
     
     vpop.open()
 
-def update_available():
-    box = GridLayout(cols=1)
-    box.add_widget(Label(text="Update Available"))
-    global Update 
-    Update = True
-    vpop = Popup(title="Please update the software",
-                    content=box,
-                    size_hint=(None, None), size=(300, 300))
+# def update_available():
+#     box = GridLayout(cols=1)
+#     box.add_widget(Label(text="Update Available"))
+#     global Update 
+#     Update = True
+#     vpop = Popup(title="Please update the software",
+#                     content=box,
+#                     size_hint=(None, None), size=(300, 300))
     
-    vpop.open()
+#     vpop.open()
 
 def no_internet():
     box = GridLayout(cols=1)
