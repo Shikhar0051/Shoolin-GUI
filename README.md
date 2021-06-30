@@ -33,3 +33,4 @@ python -m pip install kivy
 It is a simple to use GUI tool.
 
 ## Contributing
+Read the [Contributing.md](https://github.com/Shikhar0051/Shoolin-GUI/blob/master/contributing.md) file before contributing or opening an issue.
