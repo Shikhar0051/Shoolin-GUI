@@ -29,7 +29,12 @@ python -m pip install pygame
 python -m pip install kivy
 ```
 
+Run the `requirements.txt` file again to install other package dependencies.
+
 ## Usage
+
+Run the `Shoolin_GUI.py` file to execute the code. 
+
 It is a simple to use GUI tool. It is necessary to provide a specific target or a target file to run the application. The output data will be gathered and presented in the output window. A navigable button is provided to traverse between the screens.
 
 ![shoolin_main](https://user-images.githubusercontent.com/48147323/124134435-75bee780-daa0-11eb-9b92-9fa6dedd2b21.png)
