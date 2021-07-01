@@ -30,7 +30,13 @@ python -m pip install kivy
 ```
 
 ## Usage
-It is a simple to use GUI tool.
+It is a simple to use GUI tool. It is necessary to provide a specific target or a target file to run the application. The output data will be gathered and presented in the output window. A navigable button is provided to traverse between the screens.
+
+![shoolin_main](https://user-images.githubusercontent.com/48147323/124134435-75bee780-daa0-11eb-9b92-9fa6dedd2b21.png)
+
+
+![image](https://user-images.githubusercontent.com/48147323/124134386-69d32580-daa0-11eb-989a-4df326bd3075.png)
+
 
 ## Contributing
 Read the [Contributing.md](https://github.com/Shikhar0051/Shoolin-GUI/blob/master/contributing.md) file before contributing or opening an issue.
