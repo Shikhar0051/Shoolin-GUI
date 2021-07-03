@@ -1,7 +1,5 @@
 import os
 import re
-import time
-import sys
 #from kivy.clock import Clock
 from urllib.parse import urlsplit
 import requests
@@ -18,8 +16,8 @@ from kivy.config import Config
 from src.commands.target import Target
 from kivy.uix.gridlayout import GridLayout
 
-#Window.size = (600, 400)
-Config.set('graphics', 'resizable', False) #0 being off 1 being on as in true/false
+### GUI Window settings
+Config.set('graphics', 'resizable', False) 
 Config.set('graphics', 'width', '600')
 Config.set('graphics', 'height', '400')
 
@@ -38,9 +36,9 @@ class HelpWindow(Screen):
         super(HelpWindow, self).__init__(**kwargs)
 
     
-
+    ### objects from start.kv file <HelpWindow> screen
     update_software = ObjectProperty(None)
-    #print(Update)
+    
     def get_software_page(self):
         if Update == False:
             vpop = Popup(title="No Updates",
@@ -98,7 +96,7 @@ class MainWindow(Screen):
     
 
     
-
+    ### objects from start.kv file <MainWindow> screen
     target = ObjectProperty(None)
     out_file = ObjectProperty(None)
     overwrite_nmap = ObjectProperty(None)
@@ -127,6 +125,7 @@ class MainWindow(Screen):
     def no_internet_func(self):
         no_internet()
 
+    ### main function which is called after submit button is called
     def get_results(self):
             
         if self.target.text == "" and self.file_path == "":
@@ -187,6 +186,8 @@ class MainWindow(Screen):
                 options["--recursive"] = True
 
             #OutputWindow.main(options = options)
+            
+            ### sending options to output window as specified by the user
             if self.output_file:
                 command = Target(options)
                 result = command.run()
@@ -205,6 +206,7 @@ class MainWindow(Screen):
                 out_window.main(options)
                 sm.current = "output"
     
+    ### selecting file containing targets
     def get_file(self):
         path = filechooser.open_file(title="Pick a text file..", 
                              filters=[("Comma-separated Values", "*.txt")])
@@ -220,6 +222,7 @@ class MainWindow(Screen):
         else:
             invalid_popup("Please choose a single text file")
 
+    ### reseting form 
     def reset_window(self):
         self.target.text = ""
         self.out_file.text = ""
@@ -235,6 +238,7 @@ class OutputWindow(Screen):
     """
     This is the output window. All the generated results will be seen here.
     """
+    ### objects from start.kv file <OutputWindow> screen
     res = ObjectProperty(None)
     res_out = ObjectProperty(None)
 
@@ -294,7 +298,7 @@ def invalid_popup(rep):
 
 def error_popup(rep):
     """
-    Invalid form popup.
+    Error popup.
     """
     
     vpop = Popup(title="Error!",
@@ -327,6 +331,9 @@ def file_saved(rep):
 #     vpop.open()
 
 def no_internet():
+    """
+        No Internet popup
+    """
     box = GridLayout(cols=1)
     box.add_widget(Label(text="""No Internet... \nPlease check your connection \nand try again."""))
     
