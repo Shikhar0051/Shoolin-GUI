@@ -9,7 +9,7 @@ docutils==0.17.1
 pywin32==228
 Pygments==2.8.0
 pygame==2.0.1
-plyer=2.0.0
+plyer==2.0.0
 setuptools
 python_nmap==0.6.4
 shodan==1.25.0
