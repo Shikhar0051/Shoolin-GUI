@@ -16,7 +16,6 @@ It is preferable to create a virtual environment before installing the requireme
 git clone https://github.com/Shikhar0051/Shoolin-GUI.git
 cd Shoolin-GUI
 pip install  -r requirements.txt
-pip install .
 ```
 
 If any problem is encountered while installing kivy, please follow the given code.
