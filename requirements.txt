@@ -1,6 +1,5 @@
 docutils==0.17.1
 Pygments==2.8.0
-pywin32==228
 kivy-deps.sdl2==0.3.1
 kivy-deps.glew==0.3.0
 kivy-deps.gstreamer==0.3.2
